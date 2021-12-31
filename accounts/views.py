@@ -4,12 +4,14 @@ from rest_framework.generics import (
     ListCreateAPIView,
     RetrieveUpdateDestroyAPIView,
 )
+from rest_framework import permissions
 from .models import CustomUser, Branch, Department
 from .permissions import IsOwnerOrReadOnly, IsOwnerOrReadOnly_for_Branch_and_department
 from .serializers import AccountSerializer, BranchSerializer, DepartmentSerializer
 
 
 class AccountList(ListCreateAPIView):
+    permission_class = (IsOwnerOrReadOnly,)
     queryset = CustomUser.objects.all()
     serializer_class = AccountSerializer
     
