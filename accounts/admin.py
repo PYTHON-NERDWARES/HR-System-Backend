@@ -1,34 +1,27 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-
+from accounts.models import CustomUser, Branch, Department
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser,Department,Branch
 
 
-class CustomUserAdmin(UserAdmin):
+class AccountAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
-    list_display = [
-        "username",
-        "email",
-    ]
+    list_display = ('email', 'username', 'date_joined',
+                    'last_login', 'is_staff','is_superuser')
+    search_fields = ('email', 'username',)
+    readonly_fields = ('date_joined', 'last_login')
+    list_filter = ()
 
-    add_fieldsets = UserAdmin.add_fieldsets + (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('roll', 'active', 'salary','gender','department','branch','joined','mobile','thumb'),
-        }),
+
+
+    fieldsets = UserAdmin.fieldsets + (
+        ("Employee Info", {"fields": ('role', 'work_type', 'department', 'branch', 'experience', 'salary',
+         'nationality','gender', 'phone', 'Personal_Picture','joined', 'annual_off_days', 'days_taken', 'days_remaining'), }),
     )
- 
-    fieldsets = (
-        (None, {'fields': ('username', 'password')}),
-        (('Personal info'), {'fields': ('first_name', 'last_name', 'email','roll','salary','active','gender','department','branch','joined','mobile','thumb')}),
-        (('Permissions'), {
-            'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
-        }),
-        (('Important dates'), {'fields': ('last_login', 'date_joined')}),
-    )
+
+
 
 class DepartmentTable(admin.ModelAdmin):
     model = Department
@@ -42,7 +35,9 @@ class BranchTable(admin.ModelAdmin):
     list_display = [
         "name",
         "history"
+
     ]
-admin.site.register(CustomUser, CustomUserAdmin)
+
+admin.site.register(CustomUser, AccountAdmin)
+admin.site.register(Department ,DepartmentTable)
 admin.site.register(Branch, BranchTable)
-admin.site.register(Department, DepartmentTable)

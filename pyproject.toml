@@ -8,9 +8,16 @@ authors = ["Mohammad Abdul Ghafour <mohammad1478971539@gmail.com>"]
 python = "^3.9"
 Django = "^4.0"
 Pillow = "^8.4.0"
+django-money = "^2.1"
+django-phonenumber-field = "^6.0.0"
+django-phonenumbers = "^1.0.1"
+djangorestframework = "^3.13.1"
+djangorestframework-simplejwt = "^5.0.0"
 
 [tool.poetry.dev-dependencies]
 black = "^21.12b0"
+flack = "^1.3.7"
+autopep8 = "^1.6.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
