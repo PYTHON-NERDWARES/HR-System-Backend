@@ -167,7 +167,7 @@ class CustomUser(AbstractUser):
     nationality = models.CharField(max_length=50, choices=NATIONALITY, null=True , blank=True)
     phone = PhoneNumberField(null=True , blank=True, unique=True)
     Personal_Picture = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=100, null=True , blank=True)
-    joined = models.DateTimeField(default=timezone.now)
+    # joined = models.DateTimeField(default=timezone.now)
     annual_off_days = models.IntegerField(default=12)
     days_taken = models.IntegerField(default=0)
     days_remaining = models.IntegerField(default=0)
