@@ -4,6 +4,7 @@ from accounts.models import CustomUser, Branch, Department
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 
 
+
 class AccountAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
@@ -15,10 +16,9 @@ class AccountAdmin(UserAdmin):
     list_filter = ()
 
 
-
     fieldsets = UserAdmin.fieldsets + (
         ("Employee Info", {"fields": ('role', 'work_type', 'department', 'branch', 'experience', 'salary',
-         'nationality','gender', 'phone', 'Personal_Picture','joined', 'annual_off_days', 'days_taken', 'days_remaining'), }),
+         'nationality','gender', 'phone', 'Personal_Picture', 'annual_off_days', 'days_taken', 'days_remaining'), }),
     )
 
 

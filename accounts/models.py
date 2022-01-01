@@ -166,8 +166,8 @@ class CustomUser(AbstractUser):
     gender = models.CharField(choices=GENDER, max_length=10)
     nationality = models.CharField(max_length=50, choices=NATIONALITY, null=True , blank=True)
     phone = PhoneNumberField(null=True , blank=True, unique=True)
-    Personal_Picture = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=100, null=True , blank=True)
-    joined = models.DateTimeField(default=timezone.now)
+    Personal_Picture = models.ImageField(upload_to="images/", height_field=None, width_field=None, max_length=100, null=True , blank=True)
+    # joined = models.DateTimeField(default=timezone.now)
     annual_off_days = models.IntegerField(default=12)
     days_taken = models.IntegerField(default=0)
     days_remaining = models.IntegerField(default=0)
@@ -178,8 +178,8 @@ class CustomUser(AbstractUser):
 
 
 class Branch(models.Model):
-    name = models.CharField(max_length=50, unique=True)
-    phone = PhoneNumberField(null=False, blank=False, unique=True)
+    name = models.CharField(max_length=50, null=True , blank=True)
+    phone = PhoneNumberField(null=True, blank=True)
     history = models.TextField(max_length=1000,null=True,blank=True, default='No History')
     city = models.CharField(max_length=255 ,null=True , blank=True)
     country = models.CharField(max_length=255 ,null=True , blank=True)
@@ -191,7 +191,7 @@ class Branch(models.Model):
 
 
 class Department(models.Model):
-    name = models.CharField(max_length=50, choices=DEPARTMENT)
+    name = models.CharField(max_length=50, choices=DEPARTMENT, null=True , blank=True)
     history = models.TextField(max_length=1000,null=True,blank=True, default='No History')
     department_manager = models.CharField(max_length=50 ,default='')
     branch = models.ForeignKey('Branch', on_delete=models.SET_NULL, null=True , blank=True)
@@ -199,7 +199,6 @@ class Department(models.Model):
 
     def __str__(self):
         return self.name
-
 
 
 

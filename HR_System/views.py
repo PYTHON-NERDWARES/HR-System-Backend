@@ -8,7 +8,8 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     def get_token(cls, user):
         token = super().get_token(user)         
         token['role'] = user.role         
-        token['username'] = user.username 
+        token['username'] = user.username
+        token['Personal_Picture'] = str(user.Personal_Picture)
         return token 
         
 
