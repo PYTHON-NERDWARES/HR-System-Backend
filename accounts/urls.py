@@ -1,13 +1,35 @@
 from django.urls import path
-from .views import AccountList , AccountDetail ,BranchtList, BranchDetail, DepartmentList,DepartmentDetail
+from .views import (
+    AccountList,
+    AccountRetrieve,
+    AccountCreate,
+    AccountDetail,
+    BranchtList,
+    BranchRetrieve,
+    BranchCreate,
+    BranchDetail,
+    DepartmentList,
+    DepartmentRetrieve,
+    DepartmentCreate,
+    DepartmentDetail,
+)
 
 urlpatterns = [
-    path("", AccountList.as_view(), name="account_list"),
-    path("<int:pk>/", AccountDetail.as_view(), name="account_detail"),
+    path("", AccountList.as_view()),
+    path("<int:pk>/", AccountRetrieve.as_view()),
+    path("create-account", AccountCreate.as_view()),
+    path("<int:pk>/update-delete/", AccountDetail.as_view()),
 
-    path("branch", BranchtList.as_view(), name="branch_list"),
-    path("branch/<int:pk>/", BranchDetail.as_view(), name="branch_detail"),
 
-    path("department", DepartmentList.as_view(), name="department_list"),
-    path("department/<int:pk>/", DepartmentDetail.as_view(), name="department_detail"),
+    path("branch", BranchtList.as_view()),
+    path("branch/<int:pk>/", BranchRetrieve.as_view()),
+    path("create-branch", BranchCreate.as_view()),
+    path("branch/<int:pk>/update-delete/", BranchDetail.as_view()),
+
+
+    path("department", DepartmentList.as_view()),
+    path("department/<int:pk>/", DepartmentRetrieve.as_view()),
+    path("create-department", DepartmentCreate.as_view()),
+    path("department/<int:pk>/update-delete/", DepartmentDetail.as_view()),
+
 ]

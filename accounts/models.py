@@ -178,8 +178,8 @@ class CustomUser(AbstractUser):
 
 
 class Branch(models.Model):
-    name = models.CharField(max_length=50, unique=True)
-    phone = PhoneNumberField(null=False, blank=False, unique=True)
+    name = models.CharField(max_length=50, null=True , blank=True)
+    phone = PhoneNumberField(null=True, blank=True)
     history = models.TextField(max_length=1000,null=True,blank=True, default='No History')
     city = models.CharField(max_length=255 ,null=True , blank=True)
     country = models.CharField(max_length=255 ,null=True , blank=True)
@@ -191,7 +191,7 @@ class Branch(models.Model):
 
 
 class Department(models.Model):
-    name = models.CharField(max_length=50, choices=DEPARTMENT)
+    name = models.CharField(max_length=50, choices=DEPARTMENT, null=True , blank=True)
     history = models.TextField(max_length=1000,null=True,blank=True, default='No History')
     department_manager = models.CharField(max_length=50 ,default='')
     branch = models.ForeignKey('Branch', on_delete=models.SET_NULL, null=True , blank=True)
