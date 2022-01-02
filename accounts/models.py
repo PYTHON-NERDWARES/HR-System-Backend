@@ -164,14 +164,17 @@ GENDER = (('male','MALE'), ('female', 'FEMALE'))
 from django.utils.timezone import localtime, now
 id_date = localtime(now()).date()
 
+
+
 def to_integer(id_date):
     return 10000*id_date.year + 100*id_date.month + id_date.day
 
 
-
+date = to_integer(id_date)
+print(date)
 
 class CustomUser(AbstractUser):
-    employee_id = models.CharField(max_length=255 ,default={str(to_integer(id_date))}, null=True , blank=True)
+    employee_id = models.CharField(max_length=255 ,default=date, null=True , blank=True)
     role = models.CharField(max_length=50 , choices=ROLE, default='HR', null=True , blank=True)
     work_type = models.CharField(max_length=50, choices=WORKTYPE, null=True , blank=True)
     department = models.ForeignKey('Department', on_delete=models.SET_NULL, null=True , blank=True)
@@ -194,6 +197,8 @@ class CustomUser(AbstractUser):
 # obj = CustomUser.objects.last()
 # field_object = CustomUser._meta.get_field(field_name)
 # field_value = getattr(obj, field_object.attname)
+
+
 
 
 class Branch(models.Model):
