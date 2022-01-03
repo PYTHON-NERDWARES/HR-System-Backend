@@ -25,6 +25,25 @@ class AccountCreate(CreateAPIView):
     serializer_class = AccountSerializer
 
 
+    
+
+# class RegistrationViewSet(viewsets.ModelViewSet):
+#     permission_classes = (permissions.AllowAny,)
+#     queryset = User.objects.all()
+#     serializer_class = UserCreateSerializer
+#     def get(request, pk, format=None, *args, **kwargs):
+#         serializer = UserCreateSerializer(data=request.data)
+#         if not serializer.is_valid():
+#             return response.Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+#         user = serializer.save()
+#         refresh = RefreshToken.for_user(user)
+#         res = {
+#             "refresh": str(refresh),
+#             "access": str(refresh.access_token),
+#         }
+#         return response.Response(res, status.HTTP_201_CREATED)
+
+
 class AccountDetail(RetrieveUpdateDestroyAPIView):
     permission_classes = (IsHROrEmployee,)
     queryset = CustomUser.objects.all()

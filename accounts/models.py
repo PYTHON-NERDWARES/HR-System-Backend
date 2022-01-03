@@ -159,7 +159,7 @@ MARTIAL = (
     ('Married', 'Married'),
 )
 
-GENDER = (('male','MALE'), ('female', 'FEMALE'))
+GENDER = (('Male','Male'), ('Female', 'Female'))
 
 from django.utils.timezone import localtime, now
 id_date = localtime(now()).date()
@@ -173,42 +173,63 @@ def to_integer(id_date):
 date = to_integer(id_date)
 
 class CustomUser(AbstractUser):
+    password = models.CharField(('password'), max_length=128)
     employee_id = models.CharField(max_length=255 ,default=date, null=True , blank=True)
     role = models.CharField(max_length=50 , choices=ROLE, default='HR', null=True , blank=True)
     work_type = models.CharField(max_length=50, choices=WORKTYPE, null=True , blank=True)
     department = models.ForeignKey('Department', on_delete=models.SET_NULL, null=True , blank=True)
     branch = models.ForeignKey('Branch', on_delete=models.SET_NULL, null=True , blank=True)
-    experience = models.IntegerField(default=1)
+    experience = models.IntegerField(default=1 , null=True , blank=True)
     salary =models.FloatField(default="50000",null=True , blank=True)
-    gender = models.CharField(choices=GENDER, max_length=10)
+    gender = models.CharField(choices=GENDER, max_length=10 , null=True , blank=True)
     nationality = models.CharField(max_length=50, choices=NATIONALITY, null=True , blank=True)
     marital_status = models.CharField(max_length=50, choices=MARTIAL, null=True , blank=True)
     phone = PhoneNumberField(null=True , blank=True, unique=True)
     Personal_Picture = models.ImageField(upload_to="images/", height_field=None, width_field=None, max_length=100, null=True , blank=True)
     # joined = models.DateTimeField(default=timezone.now)
-    annual_off_days = models.IntegerField(default=12)
-    days_taken = models.IntegerField(default=0)
-    days_remaining = models.IntegerField(default=0)
+    annual_off_days = models.IntegerField(default=12, null=True , blank=True)
+    days_taken = models.IntegerField(default=0 , null=True , blank=True)
+    days_remaining = models.IntegerField(default=0 , null=True , blank=True)
+    # user = get_user_model().objects.create(username=username, password=raw_password, email=usr_email)
+    # user.set_password(password)
+    # user.save()
+    # sendConfirm(user)
+    # def brnchManagers(self):
+    #     queryset = self.objects.all()
+
+    #     # can use the below method also
+    #     # queryset = self.__class__.objects.all()   
+    #     # return queryset
+    #     # obj = CustomUser.objects.all()
+    #     tup = ()
+    #     for i in queryset:
+    #         if i.role == "Branch Manager":
+    #             tup.append((i.first_name + i.last_name , i.first_name + i.last_name ))
+            
+    #     return tup
 
 
 ####################################################################################################
 
+# print(CustomUser.brnchManagers())
+
 
 class Branch(models.Model):
+
     name = models.CharField(max_length=50, null=True , blank=True)
     phone = PhoneNumberField(null=True, blank=True)
     history = models.TextField(max_length=1000,null=True,blank=True, default='No History')
     city = models.CharField(max_length=255 ,null=True , blank=True)
     country = models.CharField(max_length=255 ,null=True , blank=True)
     turnover = models.IntegerField(default=5)
-    branch_manager = models.CharField(max_length=50, default='')
+    branch_manager = models.CharField(max_length=255 ,null=True , blank=True)
 
     def __str__(self):
         return self.name
 
 
 class Department(models.Model):
-    name = models.CharField(max_length=50, choices=DEPARTMENT, null=True , blank=True)
+    name = models.CharField(max_length=50, null=True , blank=True)
     history = models.TextField(max_length=1000,null=True,blank=True, default='No History')
     department_manager = models.CharField(max_length=50 ,default='')
     branch = models.ForeignKey('Branch', on_delete=models.SET_NULL, null=True , blank=True)
@@ -216,6 +237,5 @@ class Department(models.Model):
 
     def __str__(self):
         return self.name
-
 
 
