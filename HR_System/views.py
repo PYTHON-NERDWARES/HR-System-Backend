@@ -10,6 +10,8 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['role'] = user.role         
         token['username'] = user.username
         token['Personal_Picture'] = str(user.Personal_Picture)
+        token['first_name'] = str(user.first_name)
+        token['last_name'] = str(user.last_name)
         return token 
         
 

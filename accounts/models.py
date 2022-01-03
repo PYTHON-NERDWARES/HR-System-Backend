@@ -171,7 +171,6 @@ def to_integer(id_date):
 
 
 date = to_integer(id_date)
-print(date)
 
 class CustomUser(AbstractUser):
     employee_id = models.CharField(max_length=255 ,default=date, null=True , blank=True)
@@ -193,12 +192,6 @@ class CustomUser(AbstractUser):
 
 
 ####################################################################################################
-# field_name = 'id'
-# obj = CustomUser.objects.last()
-# field_object = CustomUser._meta.get_field(field_name)
-# field_value = getattr(obj, field_object.attname)
-
-
 
 
 class Branch(models.Model):
