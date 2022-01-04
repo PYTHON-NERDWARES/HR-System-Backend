@@ -1,6 +1,5 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from phonenumber_field.modelfields import PhoneNumberField
 from django.utils import timezone
 
 
@@ -219,7 +218,7 @@ class CustomUser(AbstractUser):
 class Branch(models.Model):
 
     name = models.CharField(max_length=50, null=True , blank=True)
-    phone = PhoneNumberField(null=True, blank=True)
+    phone = models.CharField(max_length=15, null=True , blank=True)
     history = models.TextField(max_length=1000,null=True,blank=True, default='No History')
     city = models.CharField(max_length=255 ,null=True , blank=True)
     country = models.CharField(max_length=255 ,null=True , blank=True)

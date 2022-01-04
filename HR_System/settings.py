@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from datetime import timedelta
-import datetime
 import os
 from pathlib import Path
 import environ
@@ -19,13 +18,30 @@ import environ
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# env = environ.Env(
+#     DEBUG=(bool, False),
+#     ENVIRONMENT=(str, "PRODUCTION"),
+#     ALLOW_ALL_ORIGINS=(bool, False),
+#     ALLOWED_HOSTS=(list, []),
+#     ALLOWED_ORIGINS=(list, []),
+# )
+
+##########################################################
+
 env = environ.Env(
     DEBUG=(bool, False),
     ENVIRONMENT=(str, "PRODUCTION"),
     ALLOW_ALL_ORIGINS=(bool, False),
     ALLOWED_HOSTS=(list, []),
     ALLOWED_ORIGINS=(list, []),
+    DATABASE_ENGINE=(str, "django.db.backends.sqlite3"),
+    DATABASE_NAME=(str, BASE_DIR / "db.sqlite3"),
+    DATABASE_USER=(str, ""),
+    DATABASE_PASSWORD=(str, ""),
+    DATABASE_HOST=(str, ""),
+    DATABASE_PORT=(int, 5432),
 )
+
 
 environ.Env.read_env()
 
@@ -45,6 +61,7 @@ ALLOWED_HOSTS = tuple(env.list("ALLOWED_HOSTS"))
 # Application definition
 
 INSTALLED_APPS = [
+    "whitenoise.runserver_nostatic",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,12 +71,12 @@ INSTALLED_APPS = [
     "corsheaders",
     'rest_framework',
     'accounts',
-    'phonenumber_field',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     "corsheaders.middleware.CorsMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -92,10 +109,21 @@ WSGI_APPLICATION = 'HR_System.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": env.str("DATABASE_ENGINE"),
+        "NAME": env.str("DATABASE_NAME"),
+        "USER": env.str("DATABASE_USER"),
+        "PASSWORD": env.str("DATABASE_PASSWORD"),
+        "HOST": env.str("DATABASE_HOST"),
+        "PORT": env.int("DATABASE_PORT"),
     }
 }
 
