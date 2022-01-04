@@ -184,12 +184,14 @@ class CustomUser(AbstractUser):
     gender = models.CharField(choices=GENDER, max_length=10 , null=True , blank=True)
     nationality = models.CharField(max_length=50, choices=NATIONALITY, null=True , blank=True)
     marital_status = models.CharField(max_length=50, choices=MARTIAL, null=True , blank=True)
-    phone = PhoneNumberField(null=True , blank=True, unique=True)
-    Personal_Picture = models.ImageField(upload_to="images/", height_field=None, width_field=None, max_length=100, null=True , blank=True)
-    # joined = models.DateTimeField(default=timezone.now)
+    phone = models.CharField(max_length=15, null=True , blank=True)
+    Personal_Picture = models.URLField(max_length=1000, null=True , blank=True)
     annual_off_days = models.IntegerField(default=12, null=True , blank=True)
     days_taken = models.IntegerField(default=0 , null=True , blank=True)
     days_remaining = models.IntegerField(default=0 , null=True , blank=True)
+    
+    # phone = PhoneNumberField(null=True , blank=True, unique=True)
+    # joined = models.DateTimeField(default=timezone.now)
     # user = get_user_model().objects.create(username=username, password=raw_password, email=usr_email)
     # user.set_password(password)
     # user.save()
@@ -239,3 +241,12 @@ class Department(models.Model):
         return self.name
 
 
+class Leave(models.Model):
+    name = models.ForeignKey('CustomUser', on_delete=models.SET_NULL, null=True , blank=True)
+    branch_name = models.CharField(max_length=255, null=True , blank=True)
+    date = models.DateTimeField(default=timezone.now)
+    request_status = models.CharField(max_length=50, default='Pending')
+    hours = models.IntegerField(default=0 )
+
+    def __str__(self):
+        return self.name.first_name +' '+ self.name.last_name

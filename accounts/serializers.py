@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser ,Branch, Department
+from .models import CustomUser ,Branch, Department , Leave
 from django.contrib.auth.hashers import make_password
 
 
@@ -20,6 +20,8 @@ class AccountSerializer(serializers.ModelSerializer):
             validated_data['password'] = make_password(validated_data['password'])
         return super(AccountSerializer, self).create(validated_data)
 
+    
+
 class BranchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Branch
@@ -37,7 +39,17 @@ class DepartmentSerializer(serializers.ModelSerializer):
 
         return rep1
 
+class LeaveSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Leave
+        fields = "__all__"
 
+    def to_representation(self, instance):
+        rep1 = super(LeaveSerializer, self).to_representation(instance)
+        # rep1['branch_name'] = instance.branch_name.name
+        rep1['name'] = instance.name.first_name + instance.name.last_name 
+
+        return rep1
 # class UserCreateSerializer(serializers.ModelSerializer):
 #     password = serializers.CharField(write_only=True, required=True, style={
 #                                      "input_type":   "password"})
