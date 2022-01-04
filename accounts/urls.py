@@ -12,6 +12,8 @@ from .views import (
     DepartmentRetrieve,
     DepartmentCreate,
     DepartmentDetail,
+    LeaveDetail,
+    LeaveList,
 )
 
 urlpatterns = [
@@ -31,5 +33,10 @@ urlpatterns = [
     path("department/<int:pk>/", DepartmentRetrieve.as_view()),
     path("create-department", DepartmentCreate.as_view()),
     path("department/<int:pk>/update-delete/", DepartmentDetail.as_view()),
+
+    path("leave", LeaveList.as_view()),
+    path("<int:pk>/leaveDetail", LeaveDetail.as_view())
+
+
 
 ]

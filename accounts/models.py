@@ -185,10 +185,14 @@ class CustomUser(AbstractUser):
     marital_status = models.CharField(max_length=50, choices=MARTIAL, null=True , blank=True)
     phone = PhoneNumberField(null=True , blank=True, unique=True)
     Personal_Picture = models.ImageField(upload_to="images/", height_field=None, width_field=None, max_length=100, null=True , blank=True)
-    # joined = models.DateTimeField(default=timezone.now)
     annual_off_days = models.IntegerField(default=12)
     days_taken = models.IntegerField(default=0)
-    days_remaining = models.IntegerField(default=0)
+    days_remaining = models.IntegerField(default=12)
+
+    monthly_permission_hours = models.IntegerField(default=8)
+    hours_taken = models.IntegerField(default=0)
+    hours_remaining = models.IntegerField(default=8)
+
 
 
 ####################################################################################################
@@ -218,4 +222,11 @@ class Department(models.Model):
         return self.name
 
 
+
+class Leave(models.Model):
+    name = models.ForeignKey('CustomUser', on_delete=models.SET_NULL, null=True , blank=True)
+    branch_name =models.ForeignKey('Branch', on_delete=models.SET_NULL, null=True , blank=True)
+    date = models.DateTimeField(default=timezone.now)
+    request_status = models.CharField(max_length=50, default='Pending')
+    hours = models.IntegerField(default=0 )
 

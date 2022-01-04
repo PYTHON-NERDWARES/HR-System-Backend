@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from accounts.models import CustomUser, Branch, Department
+from accounts.models import CustomUser, Branch, Department, Leave
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 
 
@@ -40,4 +40,5 @@ class BranchTable(admin.ModelAdmin):
 
 admin.site.register(CustomUser, AccountAdmin)
 admin.site.register(Department ,DepartmentTable)
-admin.site.register(Branch, BranchTable)
+admin.site.register(Branch, BranchTable )
+admin.site.register(Leave)

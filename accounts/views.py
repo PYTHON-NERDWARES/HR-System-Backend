@@ -1,12 +1,13 @@
 from rest_framework.generics import (
     CreateAPIView,
     ListAPIView,
+    ListCreateAPIView,
     RetrieveAPIView,
     RetrieveUpdateDestroyAPIView,
 )
-from .models import CustomUser, Branch, Department
+from .models import CustomUser, Branch, Department, Leave
 from .permissions import IsHROrEmployee
-from .serializers import AccountSerializer, BranchSerializer, DepartmentSerializer
+from .serializers import AccountSerializer, BranchSerializer, DepartmentSerializer, LeaveSerializer
 
 
 class AccountList(ListAPIView):
@@ -75,3 +76,16 @@ class DepartmentDetail(RetrieveUpdateDestroyAPIView):
     permission_classes = (IsHROrEmployee,)
     queryset = Department.objects.all()
     serializer_class = DepartmentSerializer
+
+
+#############################################################################################
+
+
+class LeaveList(ListCreateAPIView):
+    queryset = Leave.objects.all()
+    serializer_class = LeaveSerializer
+
+class LeaveDetail(RetrieveUpdateDestroyAPIView):
+    queryset = Leave.objects.all()
+    serializer_class = LeaveSerializer
+
