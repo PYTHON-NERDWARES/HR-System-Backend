@@ -12,6 +12,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['Personal_Picture'] = str(user.Personal_Picture)
         token['first_name'] = str(user.first_name)
         token['last_name'] = str(user.last_name)
+        token['branch'] = str(user.branch)
         return token 
         
 
