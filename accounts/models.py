@@ -188,26 +188,9 @@ class CustomUser(AbstractUser):
     annual_off_days = models.IntegerField(default=12, null=True , blank=True)
     days_taken = models.IntegerField(default=0 , null=True , blank=True)
     days_remaining = models.IntegerField(default=0 , null=True , blank=True)
-    
-    # phone = PhoneNumberField(null=True , blank=True, unique=True)
-    # joined = models.DateTimeField(default=timezone.now)
-    # user = get_user_model().objects.create(username=username, password=raw_password, email=usr_email)
-    # user.set_password(password)
-    # user.save()
-    # sendConfirm(user)
-    # def brnchManagers(self):
-    #     queryset = self.objects.all()
-
-    #     # can use the below method also
-    #     # queryset = self.__class__.objects.all()   
-    #     # return queryset
-    #     # obj = CustomUser.objects.all()
-    #     tup = ()
-    #     for i in queryset:
-    #         if i.role == "Branch Manager":
-    #             tup.append((i.first_name + i.last_name , i.first_name + i.last_name ))
-            
-    #     return tup
+    monthly_permission_hours = models.IntegerField(default=8)
+    hours_taken = models.IntegerField(default=0)
+    hours_remaining = models.IntegerField(default=8)
 
 
 ####################################################################################################

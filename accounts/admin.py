@@ -18,7 +18,7 @@ class AccountAdmin(UserAdmin):
 
     fieldsets = UserAdmin.fieldsets + (
         ("Employee Info", {"fields": ('employee_id','role', 'work_type', 'department', 'branch', 'experience', 'salary',
-         'nationality','marital_status','gender', 'phone', 'Personal_Picture', 'annual_off_days', 'days_taken', 'days_remaining'), }),
+         'nationality','marital_status','gender', 'phone', 'Personal_Picture', 'annual_off_days', 'days_taken', 'days_remaining' , 'monthly_permission_hours' , 'hours_taken' , 'hours_remaining'), }),
     )
 
 
